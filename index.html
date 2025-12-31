@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy New Year Abhivaishu - Forever</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* General Reset and Layout */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            overflow: hidden;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            cursor: crosshair;
+        }
+        #canvas-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+
+        /* Main Content Container */
+        .content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: #fff;
+            padding: 35px;
+            border-radius: 25px;
+            background: rgba(40, 40, 70, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+            /* Content box aane ka animation */
+            animation: fadeInUpBox 2s ease-out 0.5s forwards; /* Thoda delay taaki photo pehle dikhe */
+            opacity: 0; /* Shuru mein gayab */
+            max-width: 90%;
+            width: 500px;
+        }
+
+        /* --- UPDATED PHOTO STYLES --- */
+        .photo-container {
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: center;
+            /* Container ko thoda upar rakha hai taaki bounce hone jagah mile */
+            transform: translateY(-20px); 
+        }
+
+        .couple-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid transparent;
+            background: linear-gradient(#2b2b4e, #2b2b4e) padding-box,
+                        linear-gradient(to right, #bf953f, #ff6699, #bf953f) border-box;
+            box-shadow: 0 0 25px rgba(255, 105, 180, 0.4), 0 0 50px rgba(191, 149, 63, 0.3);
+            
+            opacity: 0; /* Shuru mein invisible */
+            
+            /* YAHAN DO ANIMATION EK SATH HAIN: */
+            /* 1. photoIntroBounce: Pehle 3 second tak bada-chota hoga */
+            /* 2. floatingPhoto: 3 second ke baad (delay) hamesha ke liye tairega */
+            animation: photoIntroBounce 3s ease-out forwards,
+                       floatingPhoto 3s ease-in-out infinite alternate 3s; 
+        }
+
+        /* NAYA ANIMATION: Photo ka bada-chota hona */
+        @keyframes photoIntroBounce {
+            0% { transform: scale(0) rotate(-30deg); opacity: 0; }
+            20% { transform: scale(1.3) rotate(10deg); opacity: 1; } /* Bada hua */
+            40% { transform: scale(0.9) rotate(-5deg); } /* Chota hua */
+            60% { transform: scale(1.15) rotate(3deg); } /* Phir bada */
+            80% { transform: scale(0.95) rotate(-2deg); } /* Phir thoda chota */
+            100% { transform: scale(1) rotate(0deg); opacity: 1; } /* Normal size mein set ho gaya */
+        }
+
+        /* Purana floating animation (ab baad mein chalega) */
+        @keyframes floatingPhoto {
+            from { transform: translateY(0); }
+            to { transform: translateY(-15px); }
+        }
+        /* ------------------------ */
+
+        /* Typography Styling */
+        h1.hny {
+            font-size: 2.2rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase;
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3)); margin-bottom: 10px;
+        }
+        h2.mylove { font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: #ff8ebf; margin-bottom: 5px; text-shadow: 0px 0px 15px rgba(255, 142, 191, 0.6); }
+        h1.name { font-size: 3.8rem; font-weight: 900; color: #ffffff; text-transform: uppercase; letter-spacing: 4px; margin-top: 5px; animation: textGlow 3s infinite alternate; }
+        p.hint { margin-top: 30px; font-size: 0.9rem; color: #d4af37; font-weight: 400; letter-spacing: 1px; opacity: 0.8; }
+
+        /* Animations */
+        @keyframes fadeInUpBox {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes textGlow {
+            from { text-shadow: 0 0 10px #fff, 0 0 20px #ff6699, 0 0 30px #ff6699; }
+            to { text-shadow: 0 0 15px #fff, 0 0 30px #ff3385, 0 0 50px #ff3385, 0 0 70px #ff3385; }
+        }
+        @media (max-width: 768px) { .content { padding: 25px; } .couple-photo { width: 140px; height: 140px; } h1.hny { font-size: 1.5rem; } h2.mylove { font-size: 2rem; } h1.name { font-size: 2.5rem; letter-spacing: 2px; } p.hint { font-size: 0.75rem; } }
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas-container"></canvas>
+
+    <div class="content">
+        <div class="photo-container">
+            <img src="abhi.png" alt="Abhishek and Vaishnavi" class="couple-photo">
+        </div>
+        <h1 class="hny">Happy New Year</h1>
+        <h2 class="mylove">My love,</h2>
+        <h1 class="name">Abhivaishu</h1>
+        <p class="hint">Hover to connect stars. <strong>CLICK anywhere for fireworks!</strong> ✨</p>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas-container');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particlesArray;
+        let fireworksArray = [];
+        let photoClonesArray = []; // Clones ke liye naya array
+
+        // Clones ke liye image load karna
+        const cloneImage = new Image();
+        cloneImage.src = 'abhi.png';
+
+        let mouse = { x: null, y: null, radius: (canvas.height/85) * (canvas.width/85) }
+        window.addEventListener('mousemove', function(event) { mouse.x = event.x; mouse.y = event.y; });
+        window.addEventListener('mouseout', function(){ mouse.x = undefined; mouse.y = undefined; });
+
+        // PART 1: CONSTELLATION PARTICLES (Stars)
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x; y = y; this.directionX = directionX; this.directionY = directionY; this.size = size; this.color = color;
+            }
+            draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); ctx.fillStyle = '#ffffff'; ctx.fill(); }
+            update() {
+                if (this.x > canvas.width || this.x < 0) { this.directionX = -this.directionX; }
+                if (this.y > canvas.height || this.y < 0) { this.directionY = -this.directionY; }
+                let dx = mouse.x - this.x; let dy = mouse.y - this.y; let distance = Math.sqrt(dx*dx + dy*dy);
+                if (distance < mouse.radius + this.size){
+                    if (mouse.x < this.x && this.x < canvas.width - this.size * 10) { this.x += 1.5; }
+                    if (mouse.x > this.x && this.x > this.size * 10) { this.x -= 1.5; }
+                    if (mouse.y < this.y && this.y < canvas.height - this.size * 10) { this.y += 1.5; }
+                    if (mouse.y > this.y && this.y > this.size * 10) { this.y -= 1.5; }
+                }
+                this.x += this.directionX; this.y += this.directionY; this.draw();
+            }
+        }
+
+        // PART 2: NEW - FLOATING PHOTO CLONES CLASS
+        class PhotoClone {
+            constructor() {
+                this.size = Math.random() * 50 + 20; // Random size (20px to 70px)
+                this.x = Math.random() * (innerWidth - this.size * 2) + this.size;
+                this.y = Math.random() * (innerHeight - this.size * 2) + this.size;
+                this.speedX = (Math.random() * 0.8) - 0.4; // Slow movement
+                this.speedY = (Math.random() * 0.8) - 0.4;
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.3 + 0.1; // Halka dikhega (transparent)
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity; // Set transparency
+                // Move to position and rotate
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * Math.PI / 180);
+                // Draw the image (circular shape clip)
+                ctx.beginPath();
+                ctx.arc(0, 0, this.size/2, 0, Math.PI*2);
+                ctx.closePath();
+                ctx.clip();
+                ctx.drawImage(cloneImage, -this.size/2, -this.size/2, this.size, this.size);
+                ctx.restore();
+            }
+            update() {
+                // Bounce off walls
+                if (this.x + this.size/2 > canvas.width || this.x - this.size/2 < 0) { this.speedX = -this.speedX; }
+                if (this.y + this.size/2 > canvas.height || this.y - this.size/2 < 0) { this.speedY = -this.speedY; }
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.rotation += this.rotationSpeed;
+                this.draw();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 10000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1;
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 1) - 0.5; let directionY = (Math.random() * 1) - 0.5;
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, '#fff'));
+            }
+
+            // Initialize Clones
+            photoClonesArray = [];
+            let numberOfClones = 25; // Kitne clones chahiye
+            for (let i = 0; i < numberOfClones; i++) {
+                photoClonesArray.push(new PhotoClone());
+            }
+        }
+
+        function connect(){
+            if (mouse.x === undefined || mouse.y === undefined) return;
+            let opacityValue = 1;
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = (( particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    let mouseDistance = ((particlesArray[a].x - mouse.x)(particlesArray[a].x - mouse.x)) + ((particlesArray[a].y - mouse.y)(particlesArray[a].y - mouse.y));
+                    if (distance < (canvas.width/7) * (canvas.height/7) && mouseDistance < 25000) {
+                        opacityValue = 1 - (distance/25000);
+                        let gradient = ctx.createLinearGradient(particlesArray[a].x, particlesArray[a].y, particlesArray[b].x, particlesArray[b].y);
+                        gradient.addColorStop(0, 'rgba(255, 215, 0,' + opacityValue + ')');
+                        gradient.addColorStop(1, 'rgba(255, 105, 180,' + opacityValue + ')');
+                        ctx.strokeStyle = gradient; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(particlesArray[a].x, particlesArray[a].y); ctx.lineTo(particlesArray[b].x, particlesArray[b].y); ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // PART 3: FIREWORKS
+        class FireworkParticle {
+            constructor(x, y, color) {
+                this.x = x; this.y = y; this.radius = Math.random() * 3 + 1; this.color = color;
+                const angle = Math.random() * Math.PI * 2; const velocity = Math.random() * 5 + 2;
+                this.dx = Math.cos(angle) * velocity; this.dy = Math.sin(angle) * velocity;
+                this.gravity = 0.06; this.friction = 0.98; this.alpha = 1;
+            }
+            draw() { ctx.save(); ctx.globalAlpha = this.alpha; ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false); ctx.fillStyle = this.color; ctx.fill(); ctx.restore(); }
+            update() { this.dy += this.gravity; this.dx *= this.friction; this.dy *= this.friction; this.x += this.dx; this.y += this.dy; this.alpha -= 0.018; }
+        }
+        window.addEventListener('click', function(e) {
+            const colors = ['#ffd700', '#ff1493', '#ffffff', '#00bfff', '#ff4500'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            for (let i = 0; i < 40; i++) { fireworksArray.push(new FireworkParticle(e.clientX, e.clientY, color)); }
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.fillStyle = 'rgba(15, 12, 41, 0.25)'; 
+            ctx.fillRect(0, 0, innerWidth, innerHeight);
+
+            // Draw background photo clones FIRST
+            for (let i = 0; i < photoClonesArray.length; i++) {
+                photoClonesArray[i].update();
+            }
+
+            for (let i = 0; i < particlesArray.length; i++) { particlesArray[i].update(); }
+            connect();
+            for (let i = 0; i < fireworksArray.length; i++) {
+                fireworksArray[i].update(); fireworksArray[i].draw();
+                if (fireworksArray[i].alpha <= 0) { fireworksArray.splice(i, 1); i--; }
+            }
+        }
+
+        window.addEventListener('resize', function(){
+                canvas.width = innerWidth; canvas.height = innerHeight;
+                mouse.radius = ((canvas.height/85) * (canvas.height/85));
+                init();
+        });
+
+        // Wait for image to load before starting animation
+        cloneImage.onload = function() {
+            init();
+            animate();
+        }
+    </script>
+</body>
+</html>
