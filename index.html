@@ -108,7 +108,15 @@
     </style>
 </head>
 <body>
-
+    
+    <script>
+        var password = prompt("🔒 Enter Password to view the surprise:");
+        // Agar password 1234 nahi hai, toh page saaf kar do
+        if (password != "7705020667") { 
+            document.body.innerHTML = '<h1 style="color:white; text-align:center; font-family:sans-serif; margin-top:20%;">🔒 Wrong Password!<br>Access Denied 🚫</h1>';
+            throw "Stop execution"; 
+        }
+    </script>
     <canvas id="canvas-container"></canvas>
 
     <div class="content">
@@ -245,40 +253,4 @@
             update() { this.dy += this.gravity; this.dx *= this.friction; this.dy *= this.friction; this.x += this.dx; this.y += this.dy; this.alpha -= 0.018; }
         }
         window.addEventListener('click', function(e) {
-            const colors = ['#ffd700', '#ff1493', '#ffffff', '#00bfff', '#ff4500'];
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            for (let i = 0; i < 40; i++) { fireworksArray.push(new FireworkParticle(e.clientX, e.clientY, color)); }
-        });
-
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.fillStyle = 'rgba(15, 12, 41, 0.25)'; 
-            ctx.fillRect(0, 0, innerWidth, innerHeight);
-
-            // Draw background photo clones FIRST
-            for (let i = 0; i < photoClonesArray.length; i++) {
-                photoClonesArray[i].update();
-            }
-
-            for (let i = 0; i < particlesArray.length; i++) { particlesArray[i].update(); }
-            connect();
-            for (let i = 0; i < fireworksArray.length; i++) {
-                fireworksArray[i].update(); fireworksArray[i].draw();
-                if (fireworksArray[i].alpha <= 0) { fireworksArray.splice(i, 1); i--; }
-            }
-        }
-
-        window.addEventListener('resize', function(){
-                canvas.width = innerWidth; canvas.height = innerHeight;
-                mouse.radius = ((canvas.height/85) * (canvas.height/85));
-                init();
-        });
-
-        // Wait for image to load before starting animation
-        cloneImage.onload = function() {
-            init();
-            animate();
-        }
-    </script>
-</body>
-</html>
+            const colors = ['#ffd70
